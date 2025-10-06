@@ -1,71 +1,102 @@
-# Electricity-Demand
+# Electricity Load Forecasting, Clustering, and Anomaly Detection
 
-# Short-Term Electricity Demand Forecasting  
+## Overview
+This project focuses on short-term electricity load forecasting, customer clustering, and anomaly detection using hourly electricity consumption data from the **UCI Electricity Load Diagrams (2011–2014)** dataset.  
+The goal is to predict hourly electricity demand, identify groups of customers with similar consumption patterns, and detect unusual behavior that may indicate anomalies.
 
-## Overview  
-This project focuses on **short-term load forecasting (STLF)** using hourly electricity demand data from the U.S. Energy Information Administration (EIA). The goal is to predict the next 24 hours of electricity demand based on historical data.  
-
-Accurate demand forecasting helps grid operators:  
-- Maintain balance between electricity supply and demand  
-- Prevent blackouts and reduce operational costs  
-- Support renewable energy integration into the grid  
-
----
-
-## Problem Statement  
-Electricity demand fluctuates daily and seasonally due to factors such as time of day, weather, and human activity. If demand is underestimated, the grid risks blackouts; if overestimated, resources are wasted.  
-
-**Objective:** Forecast hourly electricity demand for the next 24 hours using past demand values.  
+Accurate load forecasting and anomaly detection are crucial for:
+- Maintaining balance between electricity supply and demand  
+- Improving operational efficiency and energy planning  
+- Detecting abnormal or fraudulent consumption  
+- Supporting renewable energy integration into the grid  
 
 ---
 
-## Dataset  
-- **Source:** [U.S. Energy Information Administration (EIA) Open Data](https://www.eia.gov/opendata/)  
-- **Type:** Hourly electricity demand (megawatts)  
-- **Region Example:** New York ISO (NYISO), though other regions are available  
-- **Variables:**  
-  - `datetime`: timestamp of the observation  
-  - `demand_mw`: electricity demand in megawatts  
+## Problem Statement
+Electricity demand fluctuates hourly and seasonally due to factors such as time of day, weather, and user behavior.  
+If demand is underestimated, the grid risks blackouts; if overestimated, resources are wasted.  
+Similarly, abnormal consumption by certain customers can indicate faults, inefficiencies, or fraud.
 
-The dataset is univariate (demand only) for this version.  
-
----
-
-## Approach  
-1. **Data Collection:** Retrieve hourly demand data from EIA  
-2. **Exploratory Data Analysis (EDA):** Identify patterns, trends, seasonality, and autocorrelation  
-3. **Modeling:**  
-   - Baseline models: Naïve forecast, moving average  
-   - Statistical models: ARIMA, SARIMA  
-   - Machine learning models: XGBoost, Random Forest  
-   - Deep learning models (optional): LSTM, GRU  
-4. **Evaluation:** Assess forecast accuracy using metrics such as MAE, RMSE, and MAPE  
+**Objectives:**
+1. Forecast hourly electricity load using historical data.  
+2. Cluster customers based on load patterns to identify behavioral similarities.  
+3. Detect anomalies in customer consumption over time.
 
 ---
 
-## Tools and Technologies  
-- Python  
-- Pandas, NumPy  
-- Matplotlib, Seaborn  
-- Statsmodels  
-- Scikit-learn, XGBoost  
-- TensorFlow/PyTorch (optional)  
+## Dataset
+**Source:** [UCI Machine Learning Repository – Electricity Load Diagrams (2011–2014)](https://archive.ics.uci.edu/dataset/321/electricityloaddiagrams20112014)
+
+**Description:**
+- Time period: January 2011 – December 2014  
+- Frequency: 15-minute intervals (resampled to hourly averages in this project)  
+- 370 clients (anonymized) from Portugal  
+- Each column represents a client's electricity consumption (kWh)
+
+**Key Variables:**
+- `datetime`: timestamp of the observation (set as index)  
+- `client_x`: hourly electricity consumption for client *x*
 
 ---
 
-## Results  
-- Baseline performance established using simple models  
-- Comparison of statistical and machine learning models  
-- Key insights into electricity demand behavior and forecasting accuracy  
+## Approach
 
-(Results will be added after implementation.)  
+### 1. Data Preprocessing
+- Loaded and merged the CSV files  
+- Converted timestamps to datetime and resampled to hourly data  
+- Handled missing values and performed normalization  
+
+### 2. Exploratory Data Analysis (EDA)
+- Visualized overall load trends and daily/weekly seasonality  
+- Examined correlation between clients  
+- Identified typical consumption patterns across time  
+
+### 3. Clustering
+- Applied **PCA** for dimensionality reduction  
+- Used **K-Means clustering** to group customers with similar load patterns  
+- Visualized clusters in 2D/3D using PCA components  
+- Interpreted cluster behavior using average profiles per cluster  
+
+### 4. Anomaly Detection
+- Detected anomalies using **distance from cluster centroids** and **threshold-based methods**  
+- Identified customers or periods showing unusual consumption patterns  
+- Visualized anomalies on time series plots  
+
+### 5. Forecasting
+- Modeled short-term load forecasting using hourly data  
+- Implemented baseline models: Naïve, Moving Average  
+- Applied regression-based models: Linear Regression, XGBoost  
+- Developed deep learning models (LSTM/GRU) for sequence forecasting  
+- Evaluated models using **MAE**, **RMSE**, and **MAPE**
 
 ---
 
-## Future Work  
-- Incorporate weather and renewable generation data  
-- Develop multivariate forecasting models  
-- Explore probabilistic forecasting for uncertainty estimation  
-- Build a dashboard for real-time demand forecasting and visualization  
+## Tools and Technologies
+- **Python**  
+- **Pandas**, **NumPy**  
+- **Matplotlib**, **Seaborn**, **Plotly**  
+- **Scikit-learn** (for PCA, clustering, regression)  
+- **Statsmodels** (for ARIMA/SARIMA)  
+- **TensorFlow/Keras** (for LSTM and GRU models)
 
 ---
+
+## Results
+- Established baseline forecasting performance using simple models  
+- Improved accuracy with machine learning and LSTM models  
+- Clustered customers into meaningful groups based on usage patterns  
+- Detected anomalies across clients and time intervals  
+
+(Detailed visualizations and results will be added after implementation.)
+
+---
+
+## Future Work
+- Integrate weather and temperature data for multivariate forecasting  
+- Apply dynamic time warping (DTW) for better similarity detection  
+- Develop an interactive dashboard for visualization and real-time monitoring  
+- Extend the model for probabilistic and uncertainty-based forecasting  
+
+---
+
+
