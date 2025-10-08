@@ -106,6 +106,8 @@ The project implements statistical models (ARIMA, SARIMA), machine learning mode
   - Develop interactive dashboards for monitoring
 
 ---
+## Website  
+https://gridmind-forecast.lovable.app
 
 **Developed by:** Joy Murengi | Advanced Machine Learning Capstone 2025
 
